@@ -1,0 +1,10 @@
+/* 改变主题色变量 */
+$--color-primary:#E3D433;
+$--color-success:#008E74;
+$--color-warning:#008FA0;
+$--color-danger:#ECEC8C;
+$--color-info:#E80113;
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '/../static/css/themes/green/fonts';
+
+@import "/../static/css/themes/green/index.css";

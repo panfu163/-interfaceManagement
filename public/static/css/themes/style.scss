@@ -1,0 +1,95 @@
+/***-------------------------自定义红色主题色系-------------------------------***/
+$red-primary:#E50014;
+$red-danger:#EEB9CD;
+$red-success:#F6ECD1;
+$red-warning:#F0DBE4;
+$red-info:#DA6697;
+
+/***-------------------------自定义绿色主题色系-------------------------------***/
+$green-primary:#008E74;
+$green-danger:#E3D433;
+$green-success:#008FA0;
+$green-warning:#ECEC8C;
+$green-info:#E80113;
+
+/***-------------------------自定义蓝色主题色系-------------------------------***/
+$blue-primary:#4CB4E7;
+$blue-danger:#FFC09F;
+$blue-success:#FFEE93;
+$blue-warning:#E2DBBE;
+$red-info:#A3A380;
+
+/***-------------------------自定义黄色主题色系-------------------------------***/
+$yellow-primary:#EACF02;
+$yellow-danger:#6C890B;
+$yellow-success:#ABC327;
+$yellow-warning:#DFB5B7;
+$yellow-info:#7F1874;
+
+
+/***黑白灰字体颜色就不要瞎改拉这是共用的***/
+$black:#303133;
+$blacks:#000;
+$white:#fff;
+$grey:#909399;
+$greys:#C0C4CC;
+
+//边框
+$Base: #DCDFE6;
+$Light:#E4E7ED;
+$BorderLighter:#EBEEF5;
+$BorderExtralight:#F2F6FC;
+
+
+$themes: (
+        red: (
+            //字体色
+            color:$red-primary,
+            //背景色
+           background:$red-primary,
+           //边框
+            border:$red-primary
+        ),
+        blue: (
+            //字体色
+            color:$blue-primary,
+           //背景色
+           background:$blue-primary,
+           //边框
+           border:$red-primary
+        ),
+        green:(
+           //字体色
+           color:$green-primary,
+          //背景色
+            background:$green-primary,
+          //边框
+           border:$red-primary
+        ),
+        yellow:(
+           //字体色
+           color:$yellow-primary,
+           //背景色
+           background:$yellow-primary,
+           //边框
+           border:$red-primary
+        )
+);
+//遍历主题map
+@mixin themeify{
+        @each $theme-name, $theme-map in $themes {
+                //!global 把局部变量强升为全局变量
+                $theme-map: $theme-map !global;
+                //判断html的data-theme的属性值  #{}是sass的插值表达式
+                //& sass嵌套里的父容器标识   @content是混合器插槽，像vue的slot
+                [data-theme="#{$theme-name}"] & {
+                        @content;
+                }
+        }
+}
+
+//声明一个根据Key获取颜色的function
+@function index($key) {
+        @return map-get($theme-map, $key);
+}
+
