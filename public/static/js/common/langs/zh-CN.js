@@ -27,36 +27,37 @@ export default {
     information: "信息",
     community: "社区",
     personnelMatters:"人事",
-    help:"帮助中心"
+    help:"帮助中心",
+    interface:"界面管理"
   },
   stock:{
         search:{
-            title:"库存查询",
+            title:"微信小程序",
             list:{
-                check:"库存查询",
-                notes:"库存记录",
-                code:"唯一码管理"
+                check:"首页",
+                notes:"例表页",
+                code:"详情页"
             }
         },
         management:{
-            title:"库存管理",
+            title:"PC端管理",
             list:{
-                returnGoods: "退货",
-                sale:"销售",
-                allot:"库存调拨",
-                ware:"商品报损",
-                goods:"商品报溢",
-                check:"库存盘点",
+                returnGoods: "首页",
+                sale:"产品例表",
+                allot:"订单页面",
+                ware:"支付页面",
+                goods:"活动页面",
+                check:"公告页面",
             }
         },
         BaseInformation:{
-            title:"基体信息",
+            title:"H5页面管理",
             list:{
                 settings:"仓库设置",
-                info:"商品基本资料",
-                import:"数据导入",
-                backups:"数据备份",
-                restore:"数据还原",
+                info:"首页",
+                import:"例表页",
+                backups:"活动页",
+                restore:"公共页面",
             }
         }
     },

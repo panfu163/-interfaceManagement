@@ -27,7 +27,8 @@ export default {
     information: "Information",
     community: "Community",
     personnelMatters:"PersonnelMatters",
-    help:"Help"
+    help:"Help",
+    interface:"interfaceManagement"
   },
   stock:{
     search:{

@@ -106,9 +106,7 @@
 export default {
   data() {
     return {
-      isIndex: localStorage.getItem("isIndex")
-        ? localStorage.getItem("isIndex")
-        : 1,
+      isIndex: localStorage.getItem("isIndex") ? localStorage.getItem("isIndex") : 17,
     };
   },
   computed:{
@@ -121,7 +119,7 @@ export default {
         },
         {
           title:this.$t('sidebar.warehouse'),//仓库
-          url: "/#/warehouse",
+          url: "/#/web",
           icon: "el-icon-s-platform"
         },
         {
@@ -196,6 +194,10 @@ export default {
         },
         {
           title: this.$t('sidebar.personnelMatters'),//"OA",
+          url: "",
+          icon: "el-icon-s-opportunity"
+        },{
+          title: this.$t('sidebar.interface'),//"界面管理",
           url: "",
           icon: "el-icon-s-opportunity"
         }];

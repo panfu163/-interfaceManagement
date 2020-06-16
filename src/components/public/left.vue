@@ -157,7 +157,7 @@ export default {
           data: [
             {
               title:this.$t('stock.search.list.check'),
-              url: "/warehouse"
+              url: "/interfaceManagement"
             },
             {
               title:this.$t('stock.search.list.notes'),
@@ -176,7 +176,7 @@ export default {
           data: [
             {
               title:this.$t('stock.management.list.returnGoods'),
-              url: ""
+              url: "/web"
             },
             {
               title:this.$t('stock.management.list.sale'),

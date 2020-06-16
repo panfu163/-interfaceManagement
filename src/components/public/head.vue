@@ -33,7 +33,7 @@
               语言切换<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="getlocale('zh')">中文简体</el-dropdown-item>
+              <el-dropdown-item @click.native="getlocale('zh-CN')">中文简体</el-dropdown-item>
               <el-dropdown-item @click.native="getlocale('en')">English</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>

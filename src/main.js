@@ -6,7 +6,6 @@ import store from "./store";
 //import axios from 'axios';
 import Element from "element-ui";
 
-
 import Ajax from "@@/static/js/common/ajax.js";
 import Tool from "@@/static/js/common/tool.js";
 import Map from "@@/static/js/common/map.js";
@@ -24,12 +23,25 @@ if(isThemes){ //自定义主题
 }
 // 引入插件和语言包
 import VueI18n from "vue-i18n";
-import zh from "../public/static/js/common/langs/zh"; //中文
-import en from "../public/static/js/common/langs/en"; //英文
+import zhLocale  from "../public/static/js/common/langs/zh-CN"; //中文
+import enLocale from "../public/static/js/common/langs/en"; //英文
+
 Vue.use(VueI18n);
+
+const messages = {
+  'en-US': {
+    message: 'hello',
+    ...enLocale
+  },
+  'zh-CN': {
+    message: '你好',
+    ...zhLocale
+  }
+};
+
 //实例化vue-i18n https://kazupon.github.io/vue-i18n/zh/
 const i18n = new VueI18n({
-  // 从本地存储中取，如果没有默认为中文，
+    // 从本地存储中取，如果没有默认为中文，
   // 这样可以解决切换语言后，没记住选择的语言，刷新页面后还是默认的语言
   // 查看当前使用的语言
   //console.log(this.$i18n.locale)
@@ -37,12 +49,10 @@ const i18n = new VueI18n({
   //this.$i18n.locale = 'en'  // 将当前使用的语言切换到英文
   //模板引用{{$t('nav.home')}}
   //js引用 this.$t('sidebar.authority')
-  locale: localStorage.getItem("lang") || "zh", //就是我们切换语言后，刷新又是默认语言，这点我们在上面已经用本地存储localStorage解决了
-  messages: {
-    zh: zh, // 中文语言包
-    en: en // 英文语言包
-  }
-});
+  locale:localStorage.getItem("lang") || "zh-CN", // set locale
+  messages, // set locale messages
+})
+
 //Vue.use(axios);
 //Vue.use(Vuex);
 Vue.prototype.$http = Ajax; //封装ajax方法

@@ -9,7 +9,7 @@ export default new Router({
     {
       path: "/",
       name: "index",
-      redirect: "/warehouse" //重定向url地址
+      redirect: "/interfaceManagement" //重定向url地址
     },
     {
       path: "/login",
@@ -20,71 +20,44 @@ export default new Router({
       component: () =>
           import(/*webpackChunkName:"login"*/ "@/views/management/login.vue")
     },
+    {path: "/interfaceManagement",
+      component: Main,
+      children: [{
+        path: "/",
+        name: "interfaceManagement",
+        meta: {
+          title: "小程序管理"
+        },
+        component: () =>
+          import(/*webpackChunkName:"search"*/ "@/views/weChatApplet/index.vue")
+      },
+      ]},
     {
-      path: "/warehouse",
+      path: "/web",
       component: Main,
       children: [
         {
           path: "/",
-          name: "warehouse",
+          name: "web",
           meta: {
-            title: "库存查询"
+            title: "小程序管理"
           },
           component: () =>
-            import(/*webpackChunkName:"search"*/ "@/views/warehouse/list.vue")
+            import(/*webpackChunkName:"search"*/ "@/views/web/list.vue")
         },
         {
-          path: "/inventory/management",
+          path: "/web/index",
           name: "Home",
           meta: {
             title: "库存管理"
           },
           component: () =>
             import(
-              /*webpackChunkName:"management"*/ "@/views/management/index.vue"
+              /*webpackChunkName:"management"*/ "@/views/web/index.vue"
             )
-        },
-        {
-          path: "/inventory/warehouse",
-          name: "shop",
-          meta: {
-            title: "供应商管理"
-          },
-          component: () =>
-            import(
-              /*webpackChunkName:"warehouse"*/ "@/views/warehouse/index.vue"
-            )
-        },
-        {
-          path: "/InventoryFlow",
-          name: "InventoryFlow",
-          meta: {
-            title: "库存流水"
-          },
-          component: () =>
-            import(
-              /*InventoryFlow:"product"*/ "@/views/warehouse/InventoryFlow.vue"
-            )
-        },
-        {
-          path: "/uniqueCode",
-          name: "uniqueCode",
-          meta: {
-            title: "唯一码管理"
-          },
-          component: () =>
-            import(/*uniqueCode:"product"*/ "@/views/warehouse/uniqueCode.vue")
-        },
-        {
-          path: "/product",
-          name: "product",
-          meta: {
-            title: "产品中心"
-          },
-          component: () =>
-            import(/*webpackChunkName:"product"*/ "@/views/product/index.vue")
         }
       ]
     }
+
   ]
 });
