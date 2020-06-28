@@ -1,7 +1,7 @@
 <!---
  --@author  PanFu
  --@data 2020-06-9:08
- --@description 页面管理-静态实例-可以删除
+ --@description 页面管理
  --@version 1.0
 --->
 <template>
@@ -9,7 +9,7 @@
         <div class="pageMaking-container">
 
             <div class="pageMaking-header">
-               <div class="pageMaking-header-min">清空</div>
+                <div class="pageMaking-header-min">清空</div>
             </div>
 
             <div class="pageMaking-left">
@@ -60,37 +60,37 @@
 
             </div>
             <div class="pageMaking-min">
-                    <draggable v-model="list"
-                               class="pageMaking-list"
-                               :class="{noData:list.length==0}"
-                               :options="{ chosenClass:'active',scroll:true}"
-                               group="people"
-                               handle=".handle"
-                               ghost-class="ghost"
-                               @end="onEnd"
-                               @add="onAdd"
-                               :move="move"
+                <draggable v-model="list"
+                           class="pageMaking-list"
+                           :class="{noData:list.length==0}"
+                           :options="{ chosenClass:'active',scroll:true}"
+                           group="people"
+                           handle=".handle"
+                           ghost-class="ghost"
+                           @end="onEnd"
+                           @add="onAdd"
+                           :move="move"
+                >
+                    <div  class="pageMaking-view"
+                          v-for="(item, index) in list"
+                          :key="index"
+                          :class="{on:isView==index}"
+                          @mousedown="onMousedown(index)"
                     >
-                        <div  class="pageMaking-view"
-                              v-for="(item, index) in list"
-                              :key="index"
-                              :class="{on:isView==index}"
-                              @mousedown="onMousedown(index)"
-                        >
-                            <!---这里定义好的模板 把ID对应显示-->
-                            <h3>{{ item.id }}</h3>
-                            <p>{{ item.title }}</p>
-                            <!---NED 这里定义好的模板-->
+                        <!---这里定义好的模板 把ID对应显示-->
+                        <h3>{{ item.id }}</h3>
+                        <p>{{ item.title }}</p>
+                        <!---NED 这里定义好的模板-->
 
-                            <div class="handle" v-if="isView==index">+</div>
-                            <template v-if="isView==index">
-                                <div class="view-action">
-                                    <i class="el-icon-copy-document" @click="copy($event,index)"></i>
-                                    <i class="el-icon-delete" @click="del($event,index)"></i>
-                                </div>
-                            </template>
-                        </div>
-                    </draggable>
+                        <div class="handle" v-if="isView==index">+</div>
+                        <template v-if="isView==index">
+                            <div class="view-action">
+                                <i class="el-icon-copy-document" @click="copy($event,index)"></i>
+                                <i class="el-icon-delete" @click="del($event,index)"></i>
+                            </div>
+                        </template>
+                    </div>
+                </draggable>
             </div>
 
             <div class="pageMaking-right">
@@ -104,29 +104,29 @@
                 <template v-if="isAttribute==0">
                     <div class="pageMaking-box">
                         <h5>字段标识</h5>
-                        <input type="text" autocomplete="off" placeholder="" class="input el-input__inner">
+                        <input type="text" placeholder="" class="input">
                         <h5>标题</h5>
-                        <input type="text" autocomplete="off" placeholder="" class="input el-input__inner">
+                        <input type="text"  placeholder="" class="input">
                         <h5>宽度</h5>
-                        <input type="text" autocomplete="off" placeholder="100%" class="input el-input__inner">
+                        <input type="text"  placeholder="100%" class="input">
                         <h5>操作属性</h5>
-                        <input type="text" autocomplete="off" placeholder="" class="input el-input__inner">
+                        <input type="text"  placeholder="" class="input">
                     </div>
                 </template>
                 <template v-else>
                     <div class="pageMaking-box">
-                <h5>标签对齐方式</h5>
-                <div class="radio-group">
-                    <div class="radio">左对齐</div>
-                    <div  class="radio active">右对齐</div>
-                    <div  class="radio">顶部对齐</div>
-                </div>
-                <h5>组件尺寸</h5>
-                <div class="radio-group">
-                    <div class="radio">medium</div>
-                    <div  class="radio active">small</div>
-                    <div  class="radio">mini</div>
-                </div>
+                        <h5>标签对齐方式</h5>
+                        <div class="radio-group">
+                            <div class="radio">左对齐</div>
+                            <div  class="radio active">右对齐</div>
+                            <div  class="radio">顶部对齐</div>
+                        </div>
+                        <h5>组件尺寸</h5>
+                        <div class="radio-group">
+                            <div class="radio">medium</div>
+                            <div  class="radio active">small</div>
+                            <div  class="radio">mini</div>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -142,11 +142,11 @@
       draggable
     },
     props: {
-          layoutFields: { //册格布局
-            type: Array,
-            default: () => ['grid']
-          }
-      },
+      layoutFields: { //册格布局
+        type: Array,
+        default: () => ['grid']
+      }
+    },
     computed:{
     },
     data() {
@@ -172,8 +172,8 @@
       },
       //回调数据选择对应的模板
       clone:function(el){
-         console.log(el);//数据全部考过来
-        },
+        console.log(el);//数据全部考过来
+      },
       //添加数据完成
       onAdd(e){
         console.log(e.bubbles+"=="+e.cancelable+"=="+ e.defaultPrevented+"==="+e.composed+"=="+e.returnValue+"==="+e.cancelBubble+"===="+e.oldIndex+"==="+e.oldDraggableIndex+"=="+e.newIndex+"=="+ e.newDraggableIndex)
@@ -461,6 +461,15 @@
                         font-weight:700;
                         padding:20px 0;
                     }
+                    .input{
+                        width:100%;
+                        height:30px;
+                        line-height:30px;
+                        box-sizing: border-box;
+                        padding:0 10px;
+                        border:1px solid #e0e0e0;
+                        border-radius:5px;
+                    }
                     .radio-group{
                         width:90%;
                         display: flex;
@@ -501,5 +510,5 @@
             color:#fff;
             cursor:move;
         }
-  }
+    }
 </style>
