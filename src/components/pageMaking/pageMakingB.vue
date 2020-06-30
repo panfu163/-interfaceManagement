@@ -1,7 +1,7 @@
 <!---
  --@author  PanFu
  --@data 2020-06-9:08
- --@description 页面管理-页面管理-简单的静态实例可以删了
+ --@description 页面管理
  --@version 1.0
 --->
 <template>
@@ -13,22 +13,7 @@
             </div>
 
             <!--左边-->
-
             <div class="pageMaking-left">
-                <div class="aside">
-                    <h5>布局字段</h5>
-                    <draggable :list="layout"  tag="ul"
-                               :options="{group:{ name:'people', pull:'clone',put:false},sort:false,ghostClass: 'ghosts'}"
-                               :clone="clone"
-                               @end="handleMoveEnd()"
-                               @start="handleMoveStart"
-                               :move="handleMove"
-                    >
-                        <li class="list" v-for="(item, index) in layout" :key="index" >
-                            <i class="el-icon-s-grid"></i>{{item.name }}
-                        </li>
-                    </draggable>
-                </div>
 
                 <div class="aside">
                     <h5>基础字段</h5>
@@ -44,7 +29,6 @@
                         </li>
                     </draggable>
                 </div>
-
                 <div class="aside">
                     <h5>高级字段</h5>
                     <draggable :list="seniors"  tag="ul"
@@ -56,6 +40,21 @@
                     >
                         <li class="list" v-for="(item, index) in seniors" :key="index" >
                             <i class="el-icon-s-grid"></i>{{ item.title}}
+                        </li>
+                    </draggable>
+                </div>
+
+                <div class="aside">
+                    <h5>布局字段</h5>
+                    <draggable :list="layout"  tag="ul"
+                               :options="{group:{ name:'people', pull:'clone',put:false},sort:false,ghostClass: 'ghosts'}"
+                               :clone="clone"
+                               @end="handleMoveEnd()"
+                               @start="handleMoveStart"
+                               :move="handleMove"
+                    >
+                        <li class="list" v-for="(item, index) in layout" :key="index" >
+                            <i class="el-icon-s-grid"></i>{{item.name }}
                         </li>
                     </draggable>
                 </div>
@@ -75,14 +74,12 @@
                            @end="onEnd"
                            @add="onAdd"
                            :move="move"
-
                 >
                     <template  v-for="(element,index) in list">
                         <template  v-if="element.type == 'grid'">
                             <div class="pageMaking-view-row"
                                  :class="{on:isView==index}"
-                                 @mousedown="onMousedown(index)">
-
+                                 @click="onMousedown(index)">
                                 <div class="col pageMaking-view" v-for="(col,colIndex) in element.columns">
                                     <draggable
                                             v-model="col.list"
@@ -93,18 +90,18 @@
                                             class="col-list">
                                         <div v-for="(el,i) in col.list"
                                              class="pageMaking-row-col"
-                                             :class="{on:islayout==i&&colIndex==isColIndex}"
-                                             @click="rowOnMousedown(colIndex,i)"
+                                             :class="{on:isLayout==i&&colIndex==isColIndex}"
+                                             @click.stop="rowOnMousedown(colIndex,i)"
                                         >
                                             <!---这里定义好的模板 把ID对应显示-->
-                                            <h3>{{ el.id}}-{{el.type}}</h3>
+                                            <h4>{{ el.id}}----{{i}}---isLayout:{{isLayout}}----{{isColIndex}}</h4>
                                             <p>{{ el.title }}</p>
                                             <!---NED 这里定义好的模板-->
-                                            <template v-if="islayout==i&&colIndex==isColIndex">
+                                            <template v-if="isLayout==i&&colIndex==isColIndex">
                                                 <div class="drag-handle">+</div>
                                                 <div class="view-action">
-                                                    <i class="el-icon-copy-document" @click="rowCopy($event,index)"></i>
-                                                    <i class="el-icon-delete" @click="rowDel($event,index)"></i>
+                                                    <i class="el-icon-copy-document" @click.stop="rowCopy(colIndex, element, i)"></i>
+                                                    <i class="el-icon-delete" @click.stop="rowDel(colIndex, element, i)"></i>
                                                 </div>
                                             </template>
                                         </div>
@@ -115,8 +112,8 @@
                                 <template v-if="isView==index">
                                     <div class="handle">+</div>
                                     <div class="view-action">
-                                        <i class="el-icon-copy-document" @click="copy($event,index)"></i>
-                                        <i class="el-icon-delete" @click="del($event,index)"></i>
+                                        <i class="el-icon-copy-document" @click.stop="copy($event,index)"></i>
+                                        <i class="el-icon-delete" @click.stop="del($event,index)"></i>
                                     </div>
                                 </template>
                             </div>
@@ -125,10 +122,10 @@
                         <template v-else>
                             <div class="pageMaking-view"
                                  :class="{on:isView==index}"
-                                 @mousedown="onMousedown(index)"
+                                 @click="onMousedown(index)"
                             >
                                 <!---这里定义好的模板 把ID对应显示-->
-                                <h3>{{ element.id}}-{{element.type}}</h3>
+                                <h3>{{ element.id}}</h3>
                                 <p>{{ element.title }}</p>
                                 <!---NED 这里定义好的模板-->
 
@@ -161,7 +158,7 @@
                 <template v-if="isAttribute==0">
                     <div class="pageMaking-box">
                         <h5>字段标识</h5>
-                        <input type="text" placeholder="" class="input">
+                        <input type="text" placeholder="" class="input" v-model="key">
                         <h5>标题</h5>
                         <input type="text"  placeholder="" class="input">
                         <h5>宽度</h5>
@@ -241,7 +238,8 @@
           {title:"级联选择器",type:"text"},
           {title:"子表单",type:"text"}],
         list:[], //拖转数据
-        cloneData:"" //添加的数据
+        cloneData:"", //添加的数据
+        key:""
       };
     },
     methods: {
@@ -256,6 +254,7 @@
       clone:function(evt){
         let data=evt;
         data.id=evt.type+"_"+Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999);
+        this.key=data.id;
         this.cloneData=data; //数据全部考过来
       },
       //添加数据完成
@@ -269,13 +268,13 @@
       },
       //册格化添加数据完成
       handleWidgetColAdd($event, row, colIndex){
-        console.log('coladd', $event, row, colIndex);
-        const newIndex = $event.newIndex;
-        const oldIndex = $event.oldIndex;
         const item = $event.item;
+        const newIndex=$event.newIndex;
+        const oldIndex=$event.oldIndex;
         this.isColIndex=colIndex;
-        this.islayout=newIndex;
+        this.isLayout=newIndex;
         this.isView=-1;//不选中
+        console.log("是不是到这里==================");
         // 防止布局元素的嵌套拖拽
         if (row.type === "grid") {
           // 如果是列表中拖拽的元素需要还原到原来位置
@@ -289,21 +288,34 @@
       rowOnMousedown(colIndex,i){
         this.isView=-1;
         this.isColIndex=colIndex;
-        this.islayout=i;
+        this.isLayout=i;
+        console.log("不执行这里才对的====================")
       },
       //删除内容
       del(e,index){
         this.isView=index-1<=0?0:index-1;
-        console.log(this.isView+"这是选中---");
         this.list.splice(index,1);
       },
       //复制内容
       copy(e,index){
         this.isView=index+1;
-        console.log(this.isView+"这是选中===");
         let  array = this.list;
         //拼接函数(索引位置, 要删除元素的数量, 元素)
         array.splice(index,0,this.list[index]);
+      },
+      //删格化复制内容
+      rowCopy(colIndex,row,newIndex){
+        this.isLayout=newIndex+1;
+        this.isColIndex=colIndex;
+        let  array = row.columns[colIndex].list;
+        //拼接函数(索引位置, 要删除元素的数量, 元素)
+        array.splice(newIndex,0,array[newIndex]);
+      },
+      //删格删除内容
+      rowDel(colIndex,row,newIndex){
+        this.isColIndex=colIndex;
+        this.isLayout=newIndex-1 <= 0 ? 0 : newIndex-1;
+        row.columns[colIndex].list.splice(newIndex,1);
       },
       //鼠标按下
       onMousedown(index){
@@ -311,12 +323,10 @@
       },
       //start ,end ,add,update, sort, remove 得到的都差不多
       onEnd(evt){
-        console.log(evt);
         this.isView=evt.newIndex;
         var itemEl = evt.item;  // dragged HTMLElement
-        console.log(itemEl);
       },
-      move: function (evt,originalEvent) {
+      move(evt,originalEvent){
         //  console.log(evt)
         // console.log(originalEvent); //鼠标位置
       },
@@ -324,8 +334,7 @@
       attributeClick(index){
         this.isAttribute=index;
       },
-    },
-
+    }
   };
 </script>
 <style lang="scss" scoped>

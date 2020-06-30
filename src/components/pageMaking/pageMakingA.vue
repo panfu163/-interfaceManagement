@@ -2,6 +2,7 @@
  --@author  PanFu
  --@data 2020-06-9:08
  --@description 页面管理-简单的静态实例可以删了
+ -- 1.拖转-添加-修改-拖转
  --@version 1.0
 --->
 <template>
@@ -75,7 +76,7 @@
                           v-for="(item, index) in list"
                           :key="index"
                           :class="{on:isView==index}"
-                          @mousedown="onMousedown(index)"
+                          @click.native="onMousedown(index)"
                     >
                         <!---这里定义好的模板 把ID对应显示-->
                         <h3>{{ item.id }}</h3>
