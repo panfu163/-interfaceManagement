@@ -1,7 +1,7 @@
 <!---
  --@author  PanFu
  --@data 2020-06-9:08
- --@description 页面管理
+ --@description 页面管理-页面管理-简单的静态实例可以删了
  --@version 1.0
 --->
 <template>
@@ -77,71 +77,71 @@
                            :move="move"
 
                 >
-                      <template  v-for="(element,index) in list">
-                          <template  v-if="element.type == 'grid'">
-                               <div class="pageMaking-view-row"
-                                    :class="{on:isView==index}"
-                                    @mousedown="onMousedown(index)">
+                    <template  v-for="(element,index) in list">
+                        <template  v-if="element.type == 'grid'">
+                            <div class="pageMaking-view-row"
+                                 :class="{on:isView==index}"
+                                 @mousedown="onMousedown(index)">
 
-                                   <div class="col pageMaking-view" v-for="(col,colIndex) in element.columns">
-                                       <draggable
-                                           v-model="col.list"
-                                           :no-transition-on-drag="true"
-                                           v-bind="{chosenClass:'active',group:'people',ghostClass: 'ghost',animation: 200, handle: '.drag-handle'}"
-                                           @end="handleMoveEnd"
-                                           @add="handleWidgetColAdd($event, element, colIndex)"
-                                           class="col-list">
-                                           <div v-for="(el,i) in col.list"
-                                                class="pageMaking-row-col"
-                                                :class="{on:islayout==i&&colIndex==isColIndex}"
-                                                @click="rowOnMousedown(colIndex,i)"
-                                           >
-                                               <!---这里定义好的模板 把ID对应显示-->
-                                               <h3>{{ el.id}}-{{el.type}}</h3>
-                                               <p>{{ el.title }}</p>
-                                               <!---NED 这里定义好的模板-->
-                                               <template v-if="islayout==i&&colIndex==isColIndex">
-                                               <div class="drag-handle">+</div>
-                                               <div class="view-action">
-                                                   <i class="el-icon-copy-document" @click="rowCopy($event,index)"></i>
-                                                   <i class="el-icon-delete" @click="rowDel($event,index)"></i>
-                                               </div>
-                                               </template>
-                                           </div>
-                                       </draggable>
-                                   </div>
+                                <div class="col pageMaking-view" v-for="(col,colIndex) in element.columns">
+                                    <draggable
+                                            v-model="col.list"
+                                            :no-transition-on-drag="true"
+                                            v-bind="{chosenClass:'active',group:'people',ghostClass: 'ghost',animation: 200, handle: '.drag-handle'}"
+                                            @end="handleMoveEnd"
+                                            @add="handleWidgetColAdd($event, element, colIndex)"
+                                            class="col-list">
+                                        <div v-for="(el,i) in col.list"
+                                             class="pageMaking-row-col"
+                                             :class="{on:islayout==i&&colIndex==isColIndex}"
+                                             @click="rowOnMousedown(colIndex,i)"
+                                        >
+                                            <!---这里定义好的模板 把ID对应显示-->
+                                            <h3>{{ el.id}}-{{el.type}}</h3>
+                                            <p>{{ el.title }}</p>
+                                            <!---NED 这里定义好的模板-->
+                                            <template v-if="islayout==i&&colIndex==isColIndex">
+                                                <div class="drag-handle">+</div>
+                                                <div class="view-action">
+                                                    <i class="el-icon-copy-document" @click="rowCopy($event,index)"></i>
+                                                    <i class="el-icon-delete" @click="rowDel($event,index)"></i>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </draggable>
+                                </div>
 
 
-                                   <template v-if="isView==index">
-                                       <div class="handle">+</div>
-                                       <div class="view-action">
-                                           <i class="el-icon-copy-document" @click="copy($event,index)"></i>
-                                           <i class="el-icon-delete" @click="del($event,index)"></i>
-                                       </div>
-                                   </template>
-                               </div>
-
-                          </template>
-                        <template v-else>
-                           <div class="pageMaking-view"
-                            :class="{on:isView==index}"
-                            @mousedown="onMousedown(index)"
-                            >
-                            <!---这里定义好的模板 把ID对应显示-->
-                            <h3>{{ element.id}}-{{element.type}}</h3>
-                            <p>{{ element.title }}</p>
-                            <!---NED 这里定义好的模板-->
-
-                            <template v-if="isView==index">
+                                <template v-if="isView==index">
                                     <div class="handle">+</div>
                                     <div class="view-action">
                                         <i class="el-icon-copy-document" @click="copy($event,index)"></i>
                                         <i class="el-icon-delete" @click="del($event,index)"></i>
-                                   </div>
-                            </template>
+                                    </div>
+                                </template>
+                            </div>
+
+                        </template>
+                        <template v-else>
+                            <div class="pageMaking-view"
+                                 :class="{on:isView==index}"
+                                 @mousedown="onMousedown(index)"
+                            >
+                                <!---这里定义好的模板 把ID对应显示-->
+                                <h3>{{ element.id}}-{{element.type}}</h3>
+                                <p>{{ element.title }}</p>
+                                <!---NED 这里定义好的模板-->
+
+                                <template v-if="isView==index">
+                                    <div class="handle">+</div>
+                                    <div class="view-action">
+                                        <i class="el-icon-copy-document" @click="copy($event,index)"></i>
+                                        <i class="el-icon-delete" @click="del($event,index)"></i>
+                                    </div>
+                                </template>
                             </div>
                         </template>
-                      </template>
+                    </template>
                 </draggable>
 
 
@@ -187,7 +187,7 @@
                     </div>
                 </template>
             </div>
-           <!--右边 ned-->
+            <!--右边 ned-->
 
         </div>
     </div>
@@ -220,9 +220,9 @@
           id: 1,
           type: "grid",
           columns: [
-              {title:"例表1",id:1,list:[]}, //list为添加的数据
-              {title:"例表2",id:2,list:[]}
-            ]
+            {title:"例表1",id:1,list:[]}, //list为添加的数据
+            {title:"例表2",id:2,list:[]}
+          ]
         }],
         basicss:[{title:"单行文本",type:"text"},
           {title:"多行文本",type:"rowtxte"},
@@ -254,9 +254,9 @@
       },
       //回调数据选择对应的模板
       clone:function(evt){
-         let data=evt;
-             data.id=evt.type+"_"+Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999);
-         this.cloneData=data; //数据全部考过来
+        let data=evt;
+        data.id=evt.type+"_"+Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999);
+        this.cloneData=data; //数据全部考过来
       },
       //添加数据完成
       onAdd(e){
@@ -287,9 +287,9 @@
       },
       //册格化按下
       rowOnMousedown(colIndex,i){
-         this.isView=-1;
-         this.isColIndex=colIndex;
-         this.islayout=i;
+        this.isView=-1;
+        this.isColIndex=colIndex;
+        this.islayout=i;
       },
       //删除内容
       del(e,index){
@@ -307,7 +307,7 @@
       },
       //鼠标按下
       onMousedown(index){
-          this.isView=index;
+        this.isView=index;
       },
       //start ,end ,add,update, sort, remove 得到的都差不多
       onEnd(evt){
@@ -329,6 +329,6 @@
   };
 </script>
 <style lang="scss" scoped>
-@import "css/pageMaking";
+    @import "css/pageMaking";
 
 </style>
