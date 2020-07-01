@@ -1,0 +1,25 @@
+@import "style.scss";
+/********下面是自定义的CSS代码块
+ VUE使用方法 @include background("background");
+***********/
+
+//获取背景颜色
+@mixin background($color) {
+  @include themeify{
+    background:index($color);
+  }
+}
+
+//字体颜色
+@mixin color($color) {
+  @include themeify{
+    background:index($color);
+  }
+}
+
+//边框色
+@mixin border($color){
+   @include themeify{
+     border-color:index($color);
+   }
+}
